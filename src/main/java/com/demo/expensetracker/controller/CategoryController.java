@@ -20,7 +20,7 @@ import java.util.Optional;
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
-    @PostMapping("/create/{userId}")
+    @PostMapping("/{userId}/create")
     public Category addCategory(@PathVariable Integer userId, @RequestBody Category category) {
         return categoryService.addCategory(userId, category);
     }

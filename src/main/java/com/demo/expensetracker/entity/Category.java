@@ -3,6 +3,8 @@ package com.demo.expensetracker.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -19,15 +21,19 @@ public class Category {
     @JsonIgnore
     private User user;
 
+    @OneToMany(mappedBy = "category")
+    private Set<Transaction> transactions = new HashSet<>();
+
     public Category() {}
 
 
-    public Category(Integer categoryId, String title, String description, Double total_expense, User user) {
+    public Category(Integer categoryId, String title, String description, Double total_expense, User user, Set<Transaction> transactions) {
         this.categoryId = categoryId;
         this.title = title;
         this.description = description;
         this.total_expense = total_expense;
         this.user = user;
+        this.transactions = transactions;
     }
 
     public Integer getCategoryId() {
@@ -68,5 +74,13 @@ public class Category {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }
